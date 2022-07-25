@@ -6,19 +6,13 @@ function computerPlay() {
     "Unexpected result. Random number generator likely isn't working.";
 }
 
-function playerPlay() {
-    let playerChoice = prompt("Pick Rock, Paper or Scissors.");
-    playerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
-    if (playerChoice !== "Rock" && playerChoice !== "Paper" && playerChoice !== "Scissors") {
-        return false;
-    }
-    return playerChoice;
+let playerScore;
+let computerScore;
 
-}
+function oneRound(playerSelection) {
 
-function oneRound() {
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
     let computerSelection = computerPlay();
-    let playerSelection = playerPlay();
     
     console.log("You picked: " + playerSelection);
     console.log("The computer picked: " + computerSelection);
@@ -26,11 +20,31 @@ function oneRound() {
     if (computerSelection === playerSelection) {
         console.log("Tie!");
     } else if ((playerSelection === "Rock" && computerSelection === "Paper") ||
-               (playerSelection === "Paper" && computerSelection === "Scissors") ||
-               (playerSelection === "Scissors" && computerSelection == "Rock")) {
+                (playerSelection === "Paper" && computerSelection === "Scissors") ||
+                (playerSelection === "Scissors" && computerSelection == "Rock")) {
         console.log("You lose!");
+        computerScore++;
     } else {
         console.log("You win!");
+        playerScore++;
     }
- 
+
 }
+
+
+const rock = document.querySelector("#rock");
+rock.addEventListener('click', () => {
+    oneRound("rock");
+}); 
+
+const paper = document.querySelector("#paper");
+paper.addEventListener('click', () => {
+    oneRound("paper");
+});
+
+const scissors = document.querySelector("#scissors");
+scissors.addEventListener('click', () => {
+    oneRound("scissors");
+})
+
+const scores = document.querySelector("#scores");
