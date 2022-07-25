@@ -6,28 +6,33 @@ function computerPlay() {
     "Unexpected result. Random number generator likely isn't working.";
 }
 
-let playerScore;
-let computerScore;
+let playerScore = 0;
+let computerScore = 0;
+
+const choices = document.querySelector("#choices");
 
 function oneRound(playerSelection) {
 
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
     let computerSelection = computerPlay();
     
-    console.log("You picked: " + playerSelection);
-    console.log("The computer picked: " + computerSelection);
+    let choiceString = "You picked: " + playerSelection + ", The computer picked: " + computerSelection;
 
     if (computerSelection === playerSelection) {
-        console.log("Tie!");
+        choiceString += ". Tie!";
     } else if ((playerSelection === "Rock" && computerSelection === "Paper") ||
                 (playerSelection === "Paper" && computerSelection === "Scissors") ||
                 (playerSelection === "Scissors" && computerSelection == "Rock")) {
-        console.log("You lose!");
+        choiceString += ". You lose!";
         computerScore++;
     } else {
-        console.log("You win!");
+        choiceString += ". You win!";
         playerScore++;
     }
+
+    editScores();
+    choices.textContent = choiceString;
+
 
 }
 
@@ -48,3 +53,18 @@ scissors.addEventListener('click', () => {
 })
 
 const scores = document.querySelector("#scores");
+
+function editScores() {
+    let text = "Computer Score: " + computerScore + ", Your Score: " + playerScore;
+    if (computerScore == 5) {
+        text += ". Computer hit 5 points! Computer wins!";
+        playerScore = 0;
+        computerScore = 0;
+    } else if (playerScore == 5) {
+        text += ". You hit 5 points! You win!"
+        playerScore = 0;
+        computerScore = 0;
+    }
+    scores.textContent = text;
+}
+
